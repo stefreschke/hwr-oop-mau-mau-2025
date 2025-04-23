@@ -9,7 +9,7 @@ class MainTest : AnnotationSpec() {
   @Test
   fun `main prints hello world to stdout`() {
     val output = captureStandardOut {
-      main()
+      main(emptyArray())
     }.trim()
     assertThat(output).isEqualTo("Hello World!")
   }
