@@ -1,4 +1,4 @@
-package hwr.oop
+package hwr.oop.mau_mau.cli
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.main
@@ -6,7 +6,7 @@ import com.github.ajalt.clikt.core.main
 class Hello : CliktCommand("cli") {
   // TODO Change name provided to CliktCommand's constructor to the name of the project cli script!
   override fun run() {
-    val response = KotlinExample().sayHello()
+    val response = "Hello World!"
     echo(response)
   }
 }

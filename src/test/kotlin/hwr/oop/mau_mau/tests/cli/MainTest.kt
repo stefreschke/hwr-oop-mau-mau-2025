@@ -1,17 +1,18 @@
-package hwr.oop
+package hwr.oop.mau_mau.tests.cli
 
+import hwr.oop.mau_mau.cli.main
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.extensions.system.captureStandardOut
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 
 class MainTest : AnnotationSpec() {
-
+  
   @Test
   fun `main prints hello world to stdout`() {
     val output = captureStandardOut {
       main(emptyArray())
     }.trim()
-    assertThat(output).isEqualTo("Hello World!")
+    Assertions.assertThat(output).isEqualTo("Hello World!")
   }
-
+  
 }
