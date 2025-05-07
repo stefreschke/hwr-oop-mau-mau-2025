@@ -1,22 +1,45 @@
 package hwr.oop.mau_mau.tests.core
 
 import hwr.oop.mau_mau.core.Game
+import hwr.oop.mau_mau.core.Player
 import io.kotest.core.spec.style.AnnotationSpec
+import org.assertj.core.api.Assertions.assertThat
 
 class Task03_GameRelatedRelationshipsTest : AnnotationSpec() {
   
   @Test
   fun `games have players`() {
-    // NOTE: Not everything in a single test case unless feasible!
-    // HINT: Game #players, Game #turn
-    TODO("Beziehung zwischen Game und Player (Aggregation oder Komposition?) implementieren!")
+    val players = listOf(Player("Alice"), Player("Bob"))
+    val game = Game(players)
+    val retrievedPlayers = game.players()
+    assertThat(retrievedPlayers).isEqualTo(players)
   }
   
   @Test
-  fun `players have hands in games`() {
-    // NOTE: Not everything in a single test case unless feasible!
-    // HINT: Game #handOf
-    TODO("Beziehung zwischen Game, Player und Hand (Aggregation oder Komposition?) implementieren!")
+  fun `games have a player who has to play next`() {
+    // given
+    val alice = Player("Alice")
+    val players = listOf(alice, Player("Bob"))
+    val game = Game(players)
+    // when
+    val nextPlayer = game.turn()
+    // then
+    assertThat(nextPlayer).isEqualTo(alice)
+  }
+  
+  @Test
+  fun `games have hands for players, initially all hands contain 7 cards`() {
+    // given
+    val alice = Player("Alice")
+    val bob = Player("Bob")
+    val players = listOf(alice, bob)
+    val game = Game(players)
+    // when
+    val handOfAlice = game.handOf(alice)
+    val handOfBob = game.handOf(bob)
+    // then
+    assertThat(handOfAlice.size()).isEqualTo(7)
+    assertThat(handOfBob.size()).isEqualTo(7)
   }
   
   @Test

@@ -3,13 +3,27 @@ package hwr.oop.mau_mau.core
 /**
  * Games are mutable!
  */
-class Game {
+class Game(
+  private val players: List<Player>,
+) {
+  private val playerHandMap: Map<Player, Hand> = players.associateWith { Hand() }
+  private var nextPlayer: Player = players.first()
+  
+  init {
+    val cards = mutableListOf<Card>()
+    for (color in Color.entries) {
+      for (value in Value.entries) {
+        cards.add(Card(value, color))
+      }
+    }
+    playerHandMap.forEach { (_, hand) ->
+      hand.add(cards.take(7))
+    }
+  }
   
   // Queries
   
-  fun players(): Collection<Player> {
-    TODO("Players are playing a Game!")
-  }
+  fun players(): Collection<Player> = players
   
   fun isFinished(): Boolean {
     TODO("""
@@ -18,11 +32,7 @@ class Game {
   }
   
   fun turn(): Player? {
-    TODO("""
-      In a Game, there is always a Player that has to play next.
-      Only this Player can play. No one else can play.
-      If the game is finished, no one has to play next!
-    """)
+    return nextPlayer
   }
   
   fun topCard(): Card {
@@ -30,7 +40,9 @@ class Game {
   }
   
   fun handOf(player: Player): Hand {
-    TODO("In the context of a Game, a Player has a Hand!")
+    return playerHandMap[player] ?: throw IllegalArgumentException(
+      "Player $player is not part of this game!"
+    )
   }
   
   // Commands

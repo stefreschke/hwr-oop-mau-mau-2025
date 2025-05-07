@@ -1,5 +1,12 @@
 package hwr.oop.mau_mau.core
 
 enum class Value {
-  SEVEN, EIGHT
+  SEVEN,
+  EIGHT,
+  NINE,
+  TEN,
+  JACK,
+  QUEEN,
+  KING,
+  ACE,
 }
