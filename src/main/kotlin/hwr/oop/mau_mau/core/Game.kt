@@ -8,16 +8,11 @@ class Game(
 ) {
   private val playerHandMap: Map<Player, Hand> = players.associateWith { Hand() }
   private var nextPlayer: Player = players.first()
+  private val stack = Stack()
   
   init {
-    val cards = mutableListOf<Card>()
-    for (color in Color.entries) {
-      for (value in Value.entries) {
-        cards.add(Card(value, color))
-      }
-    }
     playerHandMap.forEach { (_, hand) ->
-      hand.add(cards.take(7))
+      hand.add(stack.take(7))
     }
   }
   
@@ -56,8 +51,15 @@ class Game(
     """)
   }
   
-  fun pickUp(player: Player): Card {
-    TODO("Player can draw, if it is his/her turn")
+  fun pickUp(player: Player) {
+    val handOfPlayer = playerHandMap[player] ?: throw PlayerOutOfTurnException(player)
+    handOfPlayer.add(stack.take(1))
   }
   
 }
+
+class PlayerOutOfTurnException(
+  player: Player
+): RuntimeException(
+  "$player is not in turn!"
+)

@@ -2,6 +2,7 @@ package hwr.oop.mau_mau.tests.core
 
 import hwr.oop.mau_mau.core.Game
 import hwr.oop.mau_mau.core.Player
+import hwr.oop.mau_mau.core.Stack
 import io.kotest.core.spec.style.AnnotationSpec
 import org.assertj.core.api.Assertions.assertThat
 
@@ -40,6 +41,22 @@ class Task03_GameRelatedRelationshipsTest : AnnotationSpec() {
     // then
     assertThat(handOfAlice.size()).isEqualTo(7)
     assertThat(handOfBob.size()).isEqualTo(7)
+  }
+  
+  @Test
+  fun `alice draws, has 8 cards in hand`() {
+    // given
+    val alice = Player("Alice")
+    val bob = Player("Bob")
+    val players = listOf(alice, bob)
+    val game = Game(players)
+    // when
+    game.pickUp(alice)
+    // then
+    val handOfAlice = game.handOf(alice)
+    val handOfBob = game.handOf(bob)
+    assertThat(handOfAlice).hasSize(8)
+    assertThat(handOfBob).hasSize(7)
   }
   
   @Test
